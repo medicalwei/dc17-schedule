@@ -65,11 +65,16 @@
           if (sch.length === 0) {
             return $("<div class=\"taf\">That's all for today, folks!<\/div>");
           }
+          const date = moment().format("YYYY-MM-DD");
           return sch.map(ev =>{
             let $ev = $("<div class=\"event\">")
+            let timeFormat = `${ev.formattedTime} @ ${ev.room}`;
+            if (ev.date !== date) {
+              timeFormat = `${ev.date} ${ev.formattedTime} @ ${ev.room}`;
+            }
             $("<div class=\"title\" />").text(ev.title).appendTo($ev);
             $("<div class=\"persons\" />").text(ev.persons).appendTo($ev);
-            $("<div class=\"time\" />").text(ev.formattedTime + " @ " + ev.room).appendTo($ev);
+            $("<div class=\"time\" />").text(timeFormat).appendTo($ev);
             return $ev;
           })
         }
