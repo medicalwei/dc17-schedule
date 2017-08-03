@@ -75,7 +75,7 @@
               timeFormat = `${ev.start.format("YYYY-MM-DD")} ${ev.formattedTime} @ ${ev.room}`;
             }
             let title = $("<div class=\"title\" />").text(ev.title);
-            if (now.isAfter(ev.start)) {
+            if (now.isSameOrAfter(ev.start)) {
               title.addClass("current");
             }
             title.appendTo($ev);
@@ -100,7 +100,11 @@
             .then(parseSchedule)
             .then(filterEvents)
             .then(generateDOM)
-            .then(display);
+            .then(display)
+            .then(()=>{
+              const t = moment().endOf("minute").diff(moment());
+              setTimeout(run, t);
+            });
         }
 
         $(window).on('hashchange', function() {
