@@ -100,11 +100,7 @@
             .then(parseSchedule)
             .then(filterEvents)
             .then(generateDOM)
-            .then(display)
-            .then(()=>{
-              const t = moment().endOf("minute").diff(moment());
-              setTimeout(run, t);
-            });
+            .then(display);
         }
 
         $(window).on('hashchange', function() {
@@ -113,6 +109,8 @@
 
         run();
 
+        const t = moment().endOf("minute").diff(moment());
+        setTimeout(run, t);
       </script>
 <style>
   body {
